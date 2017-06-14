@@ -1,0 +1,203 @@
+<div data-ng-controller="TableReportCtrl" class="robust-content container center-layout mt-2" data-ng-init="reportEndPoint='profit_loss'">
+  <div class="content-wrapper">
+    <div class="content-header row mb-1">
+      <div class="content-header-left col-md-9 col-xs-12">
+        <h2 class="content-header-title mb-0">Profit and Loss</h2>
+        <div class="row breadcrumbs-top">
+          <div class="breadcrumb-wrapper col-xs-12">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="#/reports">Reports</a></li>
+              <li class="breadcrumb-item active">Profit and Loss
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <p class="m-0">&nbsp;</p>
+    </div>
+
+    <div class="content-body">
+      <section>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="lbl-hd"><label>Report Period</label></h4>
+                <div class="col-md-3 mbv-1">
+                  <select class="form-control" data-ng-model="period" data-ng-change="retrieveReportByPeriod()">
+                    <option>This year to date</option>
+                    <option>This quarter</option>
+                    <option>This month</option>
+                  </select>
+                </div>
+                <div class="col-md-3 mbv-1">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                    <input type="text" class="form-control dp-month-year" data-ng-model="report.dateFrom"/>
+                  </div>
+                </div>
+                <div class="col-md-3 mbv-1">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-calendar3"></i></span>
+                    <input type="text" class="form-control dp-month-year" data-ng-model="report.dateTo"/>
+                  </div>
+                </div>
+                <div class="col-md-3 mbv-1"><button class="btn btn-outline-primary" data-ng-click="retrieveReportByFromTo()">Run Again</button></div>
+              </div>
+              <div class="card-body">
+                <div class="card-block card-dashboard cbtbl">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="card border-top-primary">
+                      <div class="card-header">
+                        <ul class="list-inline mb-0 list-vmiddle">
+                          <li><a href="javascript:void(0)" onclick="CommonFunc().toggleEditNotes('#addEditNotes');">Edit Notes <i class="icon-pencil3"></i></a></li>
+                          <li><a href="javascript:void(0)" onclick="CommonFunc().toggleEditHeader('#editModeHeader', '#editHeader');">Edit Header <i class="icon-pencil3"></i>
+                        </ul>
+                        <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                        <div class="heading-elements">
+                          <ul class="list-inline mb-0 list-vmiddle">
+                            <li><a href="#"><i class="icon-print"></i></a></li>
+                            <li class="dropdown">
+                              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-share-square-o"></i></a>
+                              <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
+	                              <a href="#" class="dropdown-item"><i class="icon-file-excel-o"></i> Export Excel</a>
+	                              <a href="#" class="dropdown-item"><i class="icon-file-pdf-o"></i> Export PDF </a>
+	                            </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="card-body collapse in">
+                        <div class="card-block cbtbl">
+                          <div class="media p-1 cname editModeHeader"  id="editModeHeader" style="display: none;">
+                            <div class="media-left">
+                              <div class="skin skin-square">
+                                <input type="checkbox" id="input-11">
+                                <label for="input-11" class="font-small-3">Show Logo</label>
+                              </div>
+                              <span class=""><img src="img/portrait/small/avatar-s-1.png" alt=""></span>
+                            </div>
+                            <div class="media-body media-middle">
+                              <button class="btn btn-link close" onclick="toggleEditHeader('#editModeHeader', '#editHeader');"><i class="icon-close"></i></button>
+                              <h1 class="media-heading"><input type="text" class="form-control" value="Company"></h1>
+                              <h2><input type="text" class="form-control" value="Profit and Loss"></h2>
+                              <h5> {{ report.dateFrom | date: 'dd MMM' }} - {{ report.dateTo | date: 'dd MMM yyyy' }} </h5>
+                            </div>
+                          </div>
+                          <div class="media p-1 cname editHeader" id="editHeader">
+                            <div class="media-left"><span class=""><img src="img/portrait/small/avatar-s-1.png" alt=""></span></div>
+                            <div class="media-body media-middle">
+                              <h1 class="media-heading">Company</h1>
+                              <h2>Profit and Loss</h2>
+                              <h5> {{ report.dateFrom | date: 'dd MMM' }} - {{ report.dateTo | date: 'dd MMM yyyy' }} </h5>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-block cbtbl">
+                          <table class="table tbl-invc">
+                              <tr>
+                                <td class="bdrT-none" colspan="2" align="right"><div class="text-bold-600"> {{ report.total | currency }} </div></td>
+                              </tr>
+                            <tr>
+                              <td  class="text-uppercase p-0" colspan="2">
+                                <table width="100%">
+                                  <tr>
+                                    <td class="bdrT-none"><button class="btn btn-link icon-caret-up" onclick="CommonFunc().toggle('incomeToggle',this)"></button> Income</td>
+                                    <td class="bdrT-none" align="right"> {{ report.totalIncome | currency }}</td>
+                                  </tr>
+                                </table>
+                                <div class="incomeToggle tdActive" style="display: none;">
+                                  <table width="100%" >
+                                    <tr>
+                                      <td class="pl-3 bdrT-none">text</td>
+                                      <td class="bdrT-none" align="right">$245</td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td  class="text-uppercase p-0" colspan="2">
+                                <table width="100%">
+                                  <tr>
+                                    <td class="bdrT-none"><button class="btn btn-link icon-caret-up" onclick="CommonFunc().toggle('costToggle',this)"></button> Cost of Sales</td>
+                                    <td class="bdrT-none" align="right"> {{ report.totalCostOfSales | currency }} </td>
+                                  </tr>
+                                </table>
+                                <div class="costToggle tdActive" style="display: none;">
+                                  <table width="100%" >
+                                    <tr>
+                                      <td class="pl-3 bdrT-none">text</td>
+                                      <td class="bdrT-none" align="right">$245</td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="bdrT-none pl-3m text-uppercase">Gross Profit</td>
+                              <td class="bdrT-none" align="right"> {{ report.grossProfit | currency }} </td>
+                            </tr>
+                            <tr>
+                              <td  class="text-uppercase p-0" colspan="2">
+                                <table width="100%">
+                                  <tr>
+                                    <td class="bdrT-none"><button class="btn btn-link icon-caret-up" onclick="CommonFunc().toggle('expenseToggle',this)"></button> Expenses</td>
+                                    <td class="bdrT-none" align="right"> {{ report.totalExpenses | currency }} </td>
+                                  </tr>
+                                </table>
+                                <div class="expenseToggle tdActive" style="display: none;">
+                                  <table width="100%" >
+                                    <tr>
+                                      <td class="pl-3 bdrT-none">text</td>
+                                      <td class="bdrT-none" align="right">$245</td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td  class="text-uppercase p-0" colspan="2">
+                                <table width="100%">
+                                  <tr>
+                                    <td class="bdrT-none"><button class="btn btn-link icon-caret-up" onclick="CommonFunc().toggle('otherExpenseToggle',this)"></button> Other Expenses</td>
+                                    <td class="bdrT-none" align="right"> {{ report.totalOtherExpenses | currency }} </td>
+                                  </tr>
+                                </table>
+                                <div class="otherExpenseToggle tdActive" style="display: none;">
+                                  <table width="100%" >
+                                    <tr>
+                                      <td class="pl-3 bdrT-none">text</td>
+                                      <td class="bdrT-none" align="right">$245</td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="bdrT-none pl-3m text-uppercase">Net Earnings</td>
+                              <td class="bdrT-none" align="right"> {{ report.netEarnings | currency }} </td>
+                            </tr>
+                          </table>
+                          <div class="addEditNotes m-1" id="addEditNotes" style="display: none;">
+                            <textarea class="form-control" autofocus></textarea>
+                            <button class="btn btn-link close" onclick="CommonFunc().toggleEditNotes('#addEditNotes');"><i class="icon-close"></i></button>
+                            <p class="mt-1 text-muted">4000 Character Max.</p>
+                          </div>
+                          <div class="text-md-center m-2 text-muted">
+                            Cash basis Monday, February 6, 2017 7:45 PM GTM+03:00
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
