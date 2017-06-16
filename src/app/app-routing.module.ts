@@ -15,6 +15,10 @@ const routes: Routes = [
 		loadChildren: './app/pages/agreement/agreement.module#AgreementModule'
 	},
 	{
+		path: 'recover-password',
+		loadChildren: './app/pages/recover-password/recover-password.module#RecoverPasswordModule'
+	},
+	{
 		path: '**',
 		redirectTo: 'signin'
 	}
