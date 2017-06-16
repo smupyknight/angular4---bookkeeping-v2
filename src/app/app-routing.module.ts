@@ -8,7 +8,11 @@ const routes: Routes = [
 	},
 	{
 		path: 'signup',
-		loadChildren: './app/pagessignup/signup.module#SignupModule'
+		loadChildren: './app/pages/signup/signup.module#SignupModule'
+	},
+	{
+		path: 'agreement',
+		loadChildren: './app/pages/agreement/agreement.module#AgreementModule'
 	},
 	{
 		path: '**',
