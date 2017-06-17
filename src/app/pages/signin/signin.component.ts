@@ -14,4 +14,8 @@ export class SigninComponent implements OnInit {
 	onSignedin() {
 		localStorage.setItem('isLoggedin', 'true');
 	}
+
+	public signin() {
+		alert("Clicked");
+	}
 }

@@ -5,7 +5,7 @@
       <div class="navbar-wrapper">
         <div>
            <span class="nav-item">
-			  <a href="index.html" class="navbar-brand nav-link">
+			  <a [routerLink]="['/']" class="navbar-brand nav-link">
 				 <img alt="branding logo" src="assets/img/logo/robust-logo-dark.png" data-expand="assets/img/logo/robust-logo-dark.png" data-collapse="assets/img/logo/robust-logo-small.png" class="brand-logo collapse in" style="height: auto; margin-top:14px">
 			  </a>
 		   </span>
@@ -22,7 +22,7 @@
         <div class="row breadcrumbs-top">
           <div class="breadcrumb-wrapper col-xs-12">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/signin">Home</a></li>
+              <li class="breadcrumb-item"><a [routerLink]="['/signin']">Home</a></li>
               <li class="breadcrumb-item active">License Agreement
               </li>
             </ol>
@@ -82,7 +82,7 @@
   <footer class="footer footer-light">
     <p class="clearfix text-muted text-sm-center mb-0 px-2">
     	<span class="float-md-left d-xs-block d-md-inline-block">Copyright  &copy; 2017 
-    		<a href="http://www.sejllat.com" target="_blank" class="text-bold-800 grey darken-2">Sejllat.com </a>, 
+    		<a [routerLink]="['/']" target="_blank" class="text-bold-800 grey darken-2">Sejllat.com </a>, 
     		All rights reserved. 
     	</span>
     	<span class="float-md-right d-xs-block d-md-inline-block">Hand-crafted &amp; Made with 

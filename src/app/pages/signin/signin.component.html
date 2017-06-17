@@ -45,16 +45,16 @@
 													<label for="remember-me"> Remember Me</label>
 												</fieldset>
 											</div>
-											<div class="col-md-6 col-xs-12 text-xs-center text-md-right"><a href="/recover-password" class="card-link">Forgot Password?</a></div>
+											<div class="col-md-6 col-xs-12 text-xs-center text-md-right"><a [routerLink]="['/recover-password']" class="card-link">Forgot Password?</a></div>
 										</fieldset>
 										
-										<h6 class="text-muted text-xs-right font-small-3 la"><span>By clicking Login, you agree to the <a href="#/agreement">License Agreement</a></span></h6>
-										<button type="submit" class="btn btn-primary btn-lg btn-block"><i class="icon-unlock2"></i> Login</button>
+										<h6 class="text-muted text-xs-right font-small-3 la"><span>By clicking Login, you agree to the <a [routerLink]="['/agreement']">License Agreement</a></span></h6>
+										<button type="submit" class="btn btn-primary btn-lg btn-block" (click)="signin()"><i class="icon-unlock2"></i> Login</button>
 									</form>
 								</div>
 								<p class="card-subtitle line-on-side text-muted text-xs-center font-small-3 mx-2 my-1"><span>New to Sejllat?</span></p>
 								<div class="card-block">
-									<a href="/signup" class="btn btn-outline-primary btn-lg btn-block"><i class="icon-head"></i> Sign Up</a>
+									<a [routerLink]="['/signup']" class="btn btn-outline-primary btn-lg btn-block"><i class="icon-head"></i> Sign Up</a>
 								</div>
 							</div>
 						</div>

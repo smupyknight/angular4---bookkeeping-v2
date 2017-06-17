@@ -48,13 +48,13 @@
 										<fieldset class="form-group has-feedback">
 											<div class="help-block font-small-3 errors"> {{ errorMessage }} </div>
 										</fieldset>
-										<h6 class="text-muted text-xs-right font-small-3 la"><span>By clicking Signup, You agree <a href="#/agreement">license agreement</a></span></h6>
+										<h6 class="text-muted text-xs-right font-small-3 la"><span>By clicking Signup, You agree <a [routerLink]="['/agreement']">license agreement</a></span></h6>
 										<button type="submit" class="btn btn-primary btn-lg btn-block"><i class="icon-unlock2"></i> Signup</button>
 									</form>
 								</div>
 								<p class="card-subtitle line-on-side text-muted text-xs-center font-small-3 mx-2 my-1"><span>Already have an account?</span></p>
 								<div class="card-block">
-									<a href="/signin" class="btn btn-outline-primary btn-lg btn-block"><i class="icon-head"></i> Sign In</a>
+									<a [routerLink]="['/signin']" class="btn btn-outline-primary btn-lg btn-block"><i class="icon-head"></i> Sign In</a>
 								</div>
 							</div>
 						</div>
